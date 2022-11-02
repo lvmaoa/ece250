@@ -1,0 +1,13 @@
+success
+failure
+failure
+success
+success
+success
+success
+success
+success
+front is "piazza" "www.piazza.com"
+back is "uw" "www.uwaterloo.ca"
+found "piazza" "www.piazza.com"
+not found "chuckECheese"

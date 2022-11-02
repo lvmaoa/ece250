@@ -1,0 +1,24 @@
+- Test01: Creation and destruction of a list
+	- Create a list of nonzero capacity
+	- Exit
+	
+- Test02: Insert a single item using push_front, then print
+
+- Test03: Insert multiple items using push_front, not more than capacity, then print
+
+- Test04: Insert multiple items using push_front exceeding capacity, then print
+
+- Test05: Insert multiple items using push_back, not more than capacity, then print
+
+- Test06: Insert multiple items using push_back, exceeding capacity, then print
+
+- Test07: Insert multiple items using both push_front and push_back, not exceeding capacity. Print.
+
+- Test08: Insert multiple items using both push_front and push_back, not exceeding capacity. Remove items using the two pop operations. Print.
+Check size as you pop and push
+
+- Test09: Insert multiple items using both push_front and push_back, not exceeding capacity. Randomly clear. Aafter clear,
+	try to remove items again. Print and check size after removal. Testing whether the array really is emptying.
+	
+- Test10: Insert multiple items using both push_front and push_back, not exceeding capacity. Check front and back elements.
+	Find URL that is in the list, then perform a find for a URL not in the list

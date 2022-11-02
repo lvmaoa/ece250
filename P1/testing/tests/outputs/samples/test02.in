@@ -1,0 +1,4 @@
+m 10
+push_front "google" "www.google.com"
+print
+exit

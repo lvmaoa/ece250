@@ -1,0 +1,6 @@
+m 10
+push_front "google" "www.google.com"
+push_front "bored" "www.boredpanda.com"
+push_front "uw" "www.uwaterloo.ca"
+print
+exit

@@ -1,0 +1,40 @@
+m 2
+clear
+pop_front
+pop_back
+print
+size
+front
+back
+find "hihi"
+empty
+push_back "google" "www.google.com"
+print
+push_back "bored" "www.boredpanda.com"
+print
+push_back "google" "www.google.com"
+print
+clear
+push_back "bored" "www.boredpanda.com"
+print
+push_back "uw" "www.uwaterloo.ca"
+print
+pop_front
+pop_back
+push_front "google" "www.google.com"
+print
+push_front "bored" "www.boredpanda.com"
+print
+pop_front
+pop_front
+push_front "uw" "www.uwaterloo.ca"
+push_front "bored" "www.boredpanda.com"
+push_front "google" "www.google.com"
+find "uw"
+find "bored"
+find "google"
+find "hihi"
+print
+size
+exit
+

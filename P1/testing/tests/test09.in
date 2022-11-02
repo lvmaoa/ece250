@@ -1,0 +1,23 @@
+m 7
+push_front "news" "news.google.com"
+push_back "google" "www.google.com"
+push_front "stackexchange" "www.stackexchange.com"
+clear
+pop_front
+print
+size
+pop_back
+print
+size
+push_back "bored" "www.boredpanda.com"
+print
+size
+push_back "uw" "www.uwaterloo.ca"
+push_front "piazza" "www.piazza.com"
+print
+pop_front
+size
+clear
+print
+exit
+

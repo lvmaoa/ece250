@@ -1,0 +1,26 @@
+success
+success
+success
+success
+"google" "www.google.com"
+"news" "news.google.com"
+"stackexchange" "www.stackexchange.com"
+size is 3
+success
+"google" "www.google.com"
+"news" "news.google.com"
+size is 2
+success
+"news" "news.google.com"
+size is 1
+success
+"bored" "www.boredpanda.com"
+"news" "news.google.com"
+size is 2
+success
+success
+success
+size is 3
+"uw" "www.uwaterloo.ca"
+"bored" "www.boredpanda.com"
+"news" "news.google.com"
