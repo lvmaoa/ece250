@@ -6,29 +6,17 @@ LIBS=
 IDIR=./include
 ODIR=./obj
 
-_DEPS = playlistdriver.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+openhttest: openhttest.cpp $(IDIR)/openhttest.hpp
+	$(CC) -o openhttest $(CFLAGS) openhttest.cpp $(LIBS) 
 
-_OBJ = playlistdriverextra.o playlistdriver.o
-OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
-
-TARGET = a.out
-INPUTS = $(shell ls $(TDIR)/*.in)
-OUTPUTS = $(patsubst $(TDIR)%.in, $(TDIR)%.out, $(INPUTS))
-
-$(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-main: $(OBJ)
-	$(CC) $^ $(CFLAGS) $(LIBS) 
+orderedhttest: orderedhttest.cpp $(IDIR)/orderedhttest.hpp
+	$(CC) -o orderedhttest $(CFLAGS) orderedhttest.cpp $(LIBS) 
 
 test:
 	./testing/test.sh
 
 clean:
-	rm $(ODIR)/*.o
+	rm openhttest orderedhttest
 
-all: main
-
-.PHONY=all
+all: openhttest orderedhttest
 
