@@ -13,6 +13,7 @@ Node::Node()
 
 Node::~Node()
 {
+    visited = isEOW = 0;
     if (parent != nullptr)
     {
         for (int i = 0; i < 26; ++i)
@@ -246,11 +247,22 @@ void Trie::spellcheck(std::string inWord)
             break;
         }
     }
-    if (i >= inWord.length() - 1)
+    // if (i >= inWord.length() - 1)
+    if (i == 0)
     {
+
+    }
+    else
+    {
+        if (curr->getEOW())
+        {
+            std::cout << word << " ";
+        }
+
         print("", word, curr);
         clearVisited(head);
     }
+
     std::cout << std::endl;
 }
 
