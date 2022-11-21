@@ -25,7 +25,6 @@ class Node
 class Trie
 {
     public:
-        bool isEmpty();
         bool insert(std::string inKey);
         bool search(std::string inKey);
         void clearVisited(Node *inNode);
