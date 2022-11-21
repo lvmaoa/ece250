@@ -1,0 +1,27 @@
+load
+p
+size
+load
+load
+p
+clear
+size
+s carmen
+clear
+i andy
+i an
+i and
+i anderson
+i andy
+i anderson
+i a
+size
+p
+s and
+s anderson
+s a
+e a
+size
+s a
+s and
+exit

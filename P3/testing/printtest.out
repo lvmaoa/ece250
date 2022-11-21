@@ -1,0 +1,80 @@
+success
+empty 1
+success
+success
+success
+success
+success
+success
+success
+illegal argument
+success
+number of words is: 8
+a ap app appl apple baba bana banana 
+success
+success
+empty 0
+number of words is: 6
+app appl apple baba bana banana 
+not found
+not found
+found app
+found appl
+found apple
+found banana
+illegal argument
+illegal argument
+success
+found appl
+success
+empty 0
+number of words is: 4
+app baba bana banana 
+success
+baba bana banana 
+empty 0
+failure
+success
+empty 1
+success
+success
+success
+success
+success
+success
+success
+success
+success
+number of words is: 9
+applc appld applf banana orange you youii young your 
+you youii young your 
+
+correct
+correct
+correct
+correct
+correct
+applc appld applf 
+applc appld applf 
+failure
+failure
+failure
+failure
+failure
+applc appld applf banana orange you youii young your 
+number of words is: 9
+success
+success
+success
+success
+success
+success
+success
+success
+success
+number of words is: 0
+empty 1
+
+success
+number of words is: 0
+empty 1
