@@ -17,9 +17,10 @@ int main ()
             std::ifstream fin("paperCollabWeighted.txt");
             while (fin >> a >> b >> w)
             {
-                collab.addVertex(a);
-                collab.addVertex(b);
-                collab.addEdge(a, w, collab.map[b]);
+                collab.insert(a, b, w);
+                // collab.addVertex(a);
+                // collab.addVertex(b);
+                // collab.addEdge(a, w, collab.map[b]);
             }
 
             std::cout << "success" << std::endl;
@@ -28,23 +29,82 @@ int main ()
         {
             std::cin >> a >> b >> w;
 
-            collab.addVertex(a);
-            collab.addVertex(b);
-            collab.addEdge(a, w, collab.map[b]);
+            try
+            {
+                if ( !((a > 0 && a <= 23133) && (b > 0 && b <= 23133) && (w >= 0 && w <= 1)) )
+                {
+                    throw illegal_exception();
+                }
+                if (collab.insert(a, b, w))
+                {
+                    std::cout << "success" << std::endl;
+                }
+                else
+                {
+                    std::cout << "failure" << std::endl;
+                }
+            }
+            catch (illegal_exception &e)
+            {
+
+            }
+
+            // collab.addVertex(a);
+            // collab.addVertex(b);
+            // collab.addEdge(a, w, collab.map[b]);
         }
         else if (cmd == "p")
         {
             std::cin >> a;
-            collab.print(a);
+
+            try
+            {
+                if ( !(a > 0 && a <= 23133) )
+                {
+                    throw illegal_exception();
+                }
+                collab.print(a);
+            }
+            catch (illegal_exception &e)
+            {
+
+            }
         }
         else if (cmd == "d")
         {
             std::cin >> a;
-            collab.remove(a);
+            try
+            {
+                if ( !(a > 0 && a <= 23133) )
+                {
+                    throw illegal_exception();
+                }
+                if (collab.remove(a))
+                {
+                    std::cout << "success" << std::endl;
+                }
+                else
+                {
+                    std::cout << "failure" << std::endl;
+                }
+            }
+            catch (illegal_exception &e)
+            {
+
+            }
         }
         else if (cmd == "mst")
         {
-
+            std::cin >> a;
+            int temp = collab.mst(a);
+            if (temp)
+            {
+                std::cout << temp << std::endl;
+            }
+            else
+            {
+                std::cout << "failure" << std::endl;
+            }
         }
         else if (cmd == "size")
         {

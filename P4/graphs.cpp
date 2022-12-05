@@ -1,25 +1,22 @@
 #include "graphs.hpp"
 
-#include <cstddef>
 #include <iostream>
 
 Graph::Graph()
 {
+    numOfVertex = 0;
     for (std::size_t i = 0; i < 23133; ++i)
     {
         map[i] = nullptr;
     }
-    numOfVertex = 0;
 }
 
 Graph::~Graph()
 {
     for (std::size_t i = 0; i < 23133; ++i)
     {
-        if (map[i] != nullptr)
-        {
-            delete map[i];
-        }
+        delete map[i];
+        map[i] = nullptr;
     }
 }
 
@@ -28,87 +25,159 @@ Edge::~Edge()
     nextVertex = nullptr;
 }
 
+double Vertex::getKey()
+{
+    return key;
+}
+
 Vertex::~Vertex()
 {
-    for (std::size_t i = 0; i < pointed.size(); ++i)
-    {
-        for (std::size_t j = 0; j < pointed[i]->edges.size(); ++j)
-        {
-            if (pointed[i]->edges[j]->nextVertex == this)
-            {
-                std::swap(pointed[i]->edges[j], pointed[i]->edges.back());
-                delete pointed[i]->edges.back();
-                pointed[i]->edges.pop_back();
-                // delete pointed[i]->edges[j];
-                // pointed[i]->edges.erase(edges.begin() + j);
-                break;
-            }
-        }
-    }
-
+    parent = nullptr;
     for (std::size_t i = 0; i < edges.size(); ++i)
     {
-        for (std::size_t j = 0; j < edges[i]->nextVertex->pointed.size(); ++j)
+        delete edges[i];
+        edges[i] = nullptr;
+    }
+    edges.clear();
+}
+
+// bool Graph::addVertex(int inid)
+// {
+//     if (map[inid - 1] == nullptr)
+//     {
+//         map[inid - 1] = new Vertex(inid);
+//         ++numOfVertex;
+//         return true;
+//     }
+//     return false;
+// }
+
+// bool Graph::addEdge(int inid, double inWeight, Vertex *inNextVertex)
+// {
+//     std::size_t i = 0;
+//     for (; i < map[inid - 1]->edges.size(); ++i)
+//     {
+//         if (map[inid - 1]->edges[i]->nextVertex == inNextVertex)
+//         {
+//             return false;
+//         }
+//     }
+//     map[inid - 1]->edges.push_back(new Edge(inWeight, inNextVertex));
+//     // map[inid - 1]->edges[i]->nextVertex->pointed.push_back(map[inid]);
+//     return true;
+// }
+
+bool Graph::insert(int inidA, int inidB, double inWeight)
+{
+    // if (map[inidA - 1] != nullptr && map[inidB - 1] != nullptr)
+    // {
+    //     for (std::size_t i = 0; i < map[inidA - 1]->edges.size(); ++i)
+    //     {
+    //         if (map[inidA]->edges[i] != nullptr)
+    //         {
+    //             if (map[inidA]->edges[i]->nextVertex->id == inidB)
+    //             {
+    //                 return 0;
+    //             }
+    //         }
+    //     }
+    // }
+
+    if (map[inidA - 1] == nullptr || map[inidB - 1] == nullptr)
+    {
+        if (map[inidA - 1] == nullptr)
         {
-            if (edges[i]->nextVertex->pointed[j] == this)
+            map[inidA - 1] = new Vertex(inidA);
+            ++numOfVertex;
+        }
+
+        if (map[inidB - 1] == nullptr)
+        {
+            map[inidB - 1] = new Vertex(inidB);
+            ++numOfVertex;
+        }
+
+        map[inidA - 1]->edges.push_back(new Edge(inWeight, map[inidB - 1]));
+        return 1;
+    }
+
+    for (std::size_t i = 0; i < map[inidA - 1]->edges.size(); ++i)
+    {
+        if (map[inidA - 1]->edges[i] != nullptr)
+        {
+            if (map[inidA - 1]->edges[i]->nextVertex->id == inidB)
             {
-                edges[i]->nextVertex->pointed.erase(edges[i]->nextVertex->pointed.begin() + j);
+                return 0;
             }
         }
     }
 
-    while (!edges.empty())
-    {
-        delete edges.back();
-        edges.pop_back();
-    }
-}
-
-bool Graph::addVertex(int inid)
-{
-    if (map[inid] == nullptr)
-    {
-        map[inid] = new Vertex(inid);
-        ++numOfVertex;
-        return true;
-    }
-    return false;
-}
-
-bool Graph::addEdge(int inid, double inWeight, Vertex *inNextVertex)
-{
-    std::size_t i = 0;
-    for (; i < map[inid]->edges.size(); ++i)
-    {
-        if (map[inid]->edges[i]->nextVertex == inNextVertex)
-        {
-            return false;
-        }
-    }
-    map[inid]->edges.push_back(new Edge(inWeight, inNextVertex));
-    map[inid]->edges[i]->nextVertex->pointed.push_back(map[inid]);
-    return true;
+    map[inidA - 1]->edges.push_back(new Edge(inWeight, map[inidB - 1]));
+    return 1;
 }
 
 void Graph::print(int inid)
 {
-    for(std::size_t i = 0; i < map[inid]->edges.size(); ++i)
+    if (map[inid - 1] == nullptr)
     {
-        std::cout << map[inid]->edges[i]->nextVertex->id << " ";
+        std::cout << std::endl;
+        return;
+    }
+
+    for(std::size_t i = 0; i < map[inid - 1]->edges.size(); ++i)
+    {
+        std::cout << map[inid - 1]->edges[i]->nextVertex->id << " ";
     }
     std::cout << std::endl;
 }
 
 bool Graph::remove(int inid)
 {
-    if (map[inid] == nullptr)
+    if (numOfVertex == 0)
     {
-        return false;
+        return 0;
     }
+
+    Vertex* a = map[inid - 1];
+
+    if (a == nullptr)
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < 23133; ++i)
+    {
+        if (i != (inid - 1))
+        {
+            Vertex* temp = map[i];
+            if (temp != nullptr)
+            {
+                for (std::size_t j = 0; j < temp->edges.size(); ++j)
+                {
+                    if (temp->edges[j]->nextVertex == a)
+                    {
+                        delete temp->edges[j];
+                        temp->edges.erase(temp->edges.begin() + j);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    for (std::size_t i = 0; i < a->edges.size(); ++i)
+    {
+        delete a->edges[i];
+        a->edges[i] = nullptr;
+    }
+
+    a->edges.clear();
+    delete a;
+
+    map[inid - 1] = nullptr;
     --numOfVertex;
-    delete map[inid];
-    map[inid] = nullptr;
-    return true;
+
+    return 1;
 }
 
 int Graph::graphSize()
@@ -118,20 +187,150 @@ int Graph::graphSize()
 
 int Graph::mst(int inid)
 {
-    std::vector<Heap> maxHeap(23133);
-    int j = 0;
+    std::vector<Vertex*> maxNodes;
+
+    if (numOfVertex == 0)
+    {
+        return 0;
+    }
+
+    if (map[inid - 1] == nullptr)
+    {
+        return 0;
+    }
+
     for (int i = 0; i < 23133; ++i)
     {
         if (map[i] != nullptr)
         {
-            maxHeap[j].vertex = map[i];
-            if (inid == i)
+            map[i]->key = -1;
+            map[i]->parent = nullptr;
+            map[i]->visited = false;
+        }
+    }
+    // root
+    map[inid - 1]->key = 0;
+    Heap priorityQ(map);
+
+    while(priorityQ.getSize() != 0)
+    {
+        Vertex* max = priorityQ.extractMax();
+
+        max->visited = true;
+
+        if (max->id != inid && max->parent == nullptr)
+        {
+            break;
+        }
+
+        maxNodes.push_back(max);
+
+        for (std::size_t i = 0; i < max->edges.size(); ++i)
+        {
+            Vertex* node = max->edges[i]->nextVertex;
+
+            if(node->visited == false && max->edges[i]->weight > node->key)
             {
-                maxHeap[j].key = 0;
+                node->key = max->edges[i]->weight;
+
+                for (int i = (priorityQ.getSize()/2); i > 0; --i)
+                {
+                    priorityQ.heapify(i);
+                }
+
+                node->parent = max;
             }
-            ++j;
         }
     }
 
+    map[inid - 1]->parent = nullptr;
+
+    return maxNodes.size();
 }
 
+Heap::Heap(Vertex* inVertices[23133])
+{
+    size = 0;
+    vertices[size] = nullptr;
+    for (int i = 0; i < 23133; ++i)
+    {
+        if (inVertices[i] != nullptr)
+        {
+            vertices[size + 1] = inVertices[i];
+            ++size;
+        }
+    }
+
+    for (int i = size + 1; i < 23133; ++i)
+    {
+        vertices[i] = nullptr;
+    }
+
+    for (int i = (size/2); i > 0; --i)
+    {
+        heapify(i);
+    }
+}
+
+Heap::~Heap()
+{
+    for (int i = 0; i < 23133; ++i)
+    {
+        vertices[i] = nullptr;
+    }
+}
+
+void Heap::heapify(int inid)
+{
+    if (vertices[inid] == nullptr)
+    {
+        return;
+    }
+    if (inid == 0)
+    {
+        ++inid;
+    }
+
+    int lgst, left, right;
+    lgst = inid;
+    left = right = 2 * inid;
+    ++right;
+
+    if (left <= size && vertices[left] != nullptr && vertices[left]->getKey() > vertices[inid]->getKey())
+    {
+        lgst = left;
+    }
+
+    if (right <= size && vertices[right] != nullptr && vertices[right]->getKey() > vertices[lgst]->getKey())
+    {
+        lgst = right;
+    }
+
+    if (lgst != inid)
+    {
+        Vertex* temp = vertices[inid];
+
+        vertices[inid] = vertices[lgst];
+        vertices[lgst] = temp;
+
+        heapify(lgst);
+    }
+}
+
+Vertex* Heap::extractMax()
+{
+    Vertex* max = vertices[1];
+    vertices[1] = vertices[size];
+
+    vertices[size] = nullptr;
+    --size;
+
+    heapify(1);
+
+    return max;
+}
+
+int Heap::getSize()
+{
+    return size;
+}

@@ -6,54 +6,64 @@ class Vertex;
 class Edge
 {
 public:
-    double weight;
-    Vertex* nextVertex;
-    // need this ?
-    /* Vertex* currVertex; */
-
     Edge(double inWeight, Vertex* inNextVertex) : weight(inWeight), nextVertex(inNextVertex) {}
     ~Edge();
+
+private:
+    double weight;
+    Vertex* nextVertex;
+
+    friend class Graph;
 };
 
 class Vertex 
 {
 public:
+    Vertex(int inid) : id(inid), key(0.0), visited(false), parent(nullptr) {}
+    ~Vertex();
+
+    double getKey();
+private:
     int id;
+    double key;
+    bool visited;
+    Vertex* parent;
     std::vector<class Edge*> edges;
     std::vector<class Vertex*> pointed;
 
-    Vertex(int inid) : id(inid) {}
-    ~Vertex();
+    friend class Graph;
 };
 
 class Graph
 {
 public:
-    Vertex* map[23133];
-    int numOfVertex;
-
-    bool addVertex(int inid);
-    bool addEdge(int inid, double inWeight, Vertex* inNextVertex);
+    // bool addVertex(int inid);
+    // bool addEdge(int inid, double inWeight, Vertex* inNextVertex);
+    bool insert(int inidA, int inidB, double inWeight);
     void print(int inid);
     bool remove(int inid);
     int graphSize();
     int mst(int inid);
 
-
     Graph();
     ~Graph();
+private:
+    Vertex* map[23133];
+    int numOfVertex;
 };
 
 class Heap
 {
+private:
+    Vertex* vertices[23134];
+    int size;
 public:
-    Vertex* parent;
-    Vertex* vertex;
-    double key;
-    bool visited;
+    Vertex* extractMax();
+    void heapify(int inid);
+    int getSize();
 
-    Heap() : parent(nullptr), vertex(nullptr), key(0.0), visited(false) {}
-    ~Heap() {}
+    Heap(Vertex* inVertices[23133]);
+    ~Heap();
 };
 
 class illegal_exception
