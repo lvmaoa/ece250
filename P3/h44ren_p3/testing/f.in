@@ -1,0 +1,82 @@
+clear
+e asfdad
+p
+empty
+load
+i q
+i qw
+i qwe
+i qwer
+i qwert
+i qwerty
+p
+size
+s qwer
+load
+size
+spellcheck qwertyu
+spellcheck q
+e qw
+e qw
+e qw
+size
+empty
+load
+p
+spellcheck q
+spellcheck qw
+spellcheck qweu
+spellcheck qwer
+spellcheck qwert
+spellcheck qwerty
+spellcheck qwertyu
+s carmen
+e carmen
+spellcheck carmen
+i carmen
+spellcheck carmen
+clear
+empty
+i ii
+i bq
+i br
+i by
+i bf
+i bd
+p
+s ii
+s b
+s bq
+spellcheck b
+e by
+spellcheck b
+p
+i `
+i {
+s `
+s {
+e `
+e {
+e ii
+e bq
+e br
+e by
+e bf
+e bd
+size
+empty
+i by
+size
+s bq
+s bf
+s b
+s by
+load
+p
+spellcheck z
+spellcheck b
+s the
+s carmen
+spellcheck carz
+exit
+load

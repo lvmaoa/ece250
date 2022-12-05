@@ -1,0 +1,84 @@
+clear
+p
+empty
+i a
+i ap
+i app
+i appl
+i apple
+i banana
+i bana
+i bana~
+i baba
+size
+p
+e a
+e ap
+empty
+size
+p
+s a
+s ap
+s app
+s appl
+s apple
+s banana
+s banana~
+e banana~
+e apple
+s appl
+e appl
+empty
+size
+p
+e app
+p
+empty
+i banana
+clear
+p
+empty
+i applc
+i appld
+i applf
+i banana
+i orange
+i you
+i youii
+i young
+i your
+size
+p
+spellcheck yo
+spellcheck zebra
+spellcheck orange
+spellcheck you
+spellcheck youii
+spellcheck young
+spellcheck your
+spellcheck appl
+spellcheck apple
+e a
+e ap
+e app
+e appl
+e apple
+p
+size
+e applc
+e appld
+e applf
+e banana
+e orange
+e you
+e youii
+e young
+e your
+p
+size
+empty
+spellcheck app
+clear
+size
+empty
+exit
