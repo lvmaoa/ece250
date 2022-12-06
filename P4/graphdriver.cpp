@@ -2,13 +2,24 @@
 
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+
+int ans = 0;
 
 int main ()
 {
     std::string cmd;
-    int a, b, w;
+    int a, b, realAns = 0, index = 0;
+    double w;
 
     Graph collab;
+
+    // std::ifstream fin("paperCollabWeighted.txt");
+    // while (fin >> a >> b >> w)
+    // {
+    //     collab.insert(a, b, w);
+    // }
+
 
     while (std::cin >> cmd)
     {
@@ -48,73 +59,51 @@ int main ()
             {
 
             }
-
-            // collab.addVertex(a);
-            // collab.addVertex(b);
-            // collab.addEdge(a, w, collab.map[b]);
-        }
-        else if (cmd == "p")
-        {
-            std::cin >> a;
-
-            try
-            {
-                if ( !(a > 0 && a <= 23133) )
-                {
-                    throw illegal_exception();
-                }
-                collab.print(a);
-            }
-            catch (illegal_exception &e)
-            {
-
-            }
-        }
-        else if (cmd == "d")
-        {
-            std::cin >> a;
-            try
-            {
-                if ( !(a > 0 && a <= 23133) )
-                {
-                    throw illegal_exception();
-                }
-                if (collab.remove(a))
-                {
-                    std::cout << "success" << std::endl;
-                }
-                else
-                {
-                    std::cout << "failure" << std::endl;
-                }
-            }
-            catch (illegal_exception &e)
-            {
-
-            }
-        }
-        else if (cmd == "mst")
-        {
-            std::cin >> a;
-            int temp = collab.mst(a);
-            if (temp)
-            {
-                std::cout << temp << std::endl;
-            }
-            else
-            {
-                std::cout << "failure" << std::endl;
-            }
-        }
-        else if (cmd == "size")
-        {
-            std::cout << "number of vertices is " << collab.graphSize() << std::endl;
         }
         else if (cmd == "exit")
         {
             break;
         }
     }
+
+    for (int i = 1 ; i < 23133; ++i)
+    {
+        if (collab.map[i] != nullptr)
+        {
+            collab.DFS(i);
+            if (ans > realAns && ans > 1)
+            {
+                realAns = ans - 1;
+                index = i;
+            }
+            ans = 0;
+        }
+    }
+
+    std::cout << realAns << std::endl;
+
+    std::cout << collab.mst(index) << std::endl;
+
     return 0;
 }
 
+void Graph::DFS(int inid)
+{
+    Vertex* temp = map[inid - 1];
+    if (std::find(ignore.begin(), ignore.end(), temp) != ignore.end())
+    {
+        return;
+    }
+    
+    ++ans;
+    temp->visited = true;
+    ignore.push_back(temp);
+
+    for (std::size_t i = 0; i < temp->edges.size(); ++i)
+    {
+        if (temp->edges[i]->nextVertex->visited == false)
+        {
+            DFS(temp->edges[i]->nextVertex->id);
+        }
+    }
+}

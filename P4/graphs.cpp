@@ -251,7 +251,20 @@ int Graph::mst(int inid)
 
     map[inid - 1]->parent = nullptr;
 
-    return maxNodes.size();
+    int ans = 0;
+
+    for (std::size_t i = 0; i < maxNodes.size(); ++i)
+    {
+        for (std::size_t j = 0; j < maxNodes[i]->edges.size(); ++j)
+        {
+            if (maxNodes[i]->edges[j] != nullptr)
+            {
+                ++ans;
+            }
+        }
+    }
+
+    return ans;
 }
 
 Heap::Heap(Vertex* inVertices[23133])

@@ -1,6 +1,5 @@
 {
     "files.associations": {
-        "random": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -29,6 +28,7 @@
         "memory_resource": "cpp",
         "numeric": "cpp",
         "optional": "cpp",
+        "random": "cpp",
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",
@@ -46,6 +46,7 @@
         "ranges": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "list": "cpp"
     }
 }

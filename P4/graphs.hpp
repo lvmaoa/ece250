@@ -43,10 +43,12 @@ public:
     bool remove(int inid);
     int graphSize();
     int mst(int inid);
+    void DFS(int inid);
 
     Graph();
     ~Graph();
-private:
+
+    std::vector<class Vertex*> ignore;
     Vertex* map[23133];
     int numOfVertex;
 };
