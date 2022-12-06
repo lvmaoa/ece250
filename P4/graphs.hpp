@@ -29,7 +29,6 @@ private:
     bool visited;
     Vertex* parent;
     std::vector<class Edge*> edges;
-    std::vector<class Vertex*> pointed;
 
     friend class Graph;
 };
@@ -59,7 +58,7 @@ private:
     int size;
 public:
     Vertex* extractMax();
-    void heapify(int inid);
+    void heapify(int ind);
     int getSize();
 
     Heap(Vertex* inVertices[23133]);

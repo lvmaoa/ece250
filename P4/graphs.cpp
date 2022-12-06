@@ -32,6 +32,9 @@ double Vertex::getKey()
 
 Vertex::~Vertex()
 {
+    id = 0;
+    key = 0.0;
+    visited = false;
     parent = nullptr;
     for (std::size_t i = 0; i < edges.size(); ++i)
     {
@@ -126,6 +129,7 @@ void Graph::print(int inid)
         return;
     }
 
+    // iterate through edges
     for(std::size_t i = 0; i < map[inid - 1]->edges.size(); ++i)
     {
         std::cout << map[inid - 1]->edges[i]->nextVertex->id << " ";
@@ -135,14 +139,14 @@ void Graph::print(int inid)
 
 bool Graph::remove(int inid)
 {
-    if (numOfVertex == 0)
+    if (!numOfVertex)
     {
         return false;
     }
 
-    Vertex* a = map[inid - 1];
+    Vertex* temp = map[inid - 1];
 
-    if (a == nullptr)
+    if (temp == nullptr)
     {
         return false;
     }
@@ -151,15 +155,15 @@ bool Graph::remove(int inid)
     {
         if (i != (inid - 1))
         {
-            Vertex* temp = map[i];
-            if (temp != nullptr)
+            Vertex* tempLoop = map[i];
+            if (tempLoop != nullptr)
             {
-                for (std::size_t j = 0; j < temp->edges.size(); ++j)
+                for (std::size_t j = 0; j < tempLoop->edges.size(); ++j)
                 {
-                    if (temp->edges[j]->nextVertex == a)
+                    if (tempLoop->edges[j]->nextVertex == temp)
                     {
-                        delete temp->edges[j];
-                        temp->edges.erase(temp->edges.begin() + j);
+                        delete tempLoop->edges[j];
+                        tempLoop->edges.erase(tempLoop->edges.begin() + j);
                         break;
                     }
                 }
@@ -167,14 +171,14 @@ bool Graph::remove(int inid)
         }
     }
 
-    for (std::size_t i = 0; i < a->edges.size(); ++i)
+    for (std::size_t i = 0; i < temp->edges.size(); ++i)
     {
-        delete a->edges[i];
-        a->edges[i] = nullptr;
+        delete temp->edges[i];
+        temp->edges[i] = nullptr;
     }
 
-    a->edges.clear();
-    delete a;
+    temp->edges.clear();
+    delete temp;
 
     map[inid - 1] = nullptr;
     --numOfVertex;
@@ -193,12 +197,12 @@ int Graph::mst(int inid)
 
     if (numOfVertex == 0)
     {
-        return false;
+        return 0;
     }
 
     if (map[inid - 1] == nullptr)
     {
-        return false;
+        return 0;
     }
 
     for (int i = 0; i < 23133; ++i)
@@ -282,23 +286,23 @@ Heap::~Heap()
     }
 }
 
-void Heap::heapify(int inid)
+void Heap::heapify(int ind)
 {
-    if (vertices[inid] == nullptr)
+    if (vertices[ind] == nullptr)
     {
         return;
     }
-    if (inid == 0)
+    if (ind == 0)
     {
-        ++inid;
+        ++ind;
     }
 
     int lgst, left, right;
-    lgst = inid;
-    left = right = 2 * inid;
+    lgst = ind;
+    left = right = 2 * ind;
     ++right;
 
-    if (left <= size && vertices[left] != nullptr && vertices[left]->getKey() > vertices[inid]->getKey())
+    if (left <= size && vertices[left] != nullptr && vertices[left]->getKey() > vertices[ind]->getKey())
     {
         lgst = left;
     }
@@ -308,11 +312,11 @@ void Heap::heapify(int inid)
         lgst = right;
     }
 
-    if (lgst != inid)
+    if (lgst != ind)
     {
-        Vertex* temp = vertices[inid];
+        Vertex* temp = vertices[ind];
 
-        vertices[inid] = vertices[lgst];
+        vertices[ind] = vertices[lgst];
         vertices[lgst] = temp;
 
         heapify(lgst);
