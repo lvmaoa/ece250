@@ -83,6 +83,7 @@ bool Graph::insert(int inidA, int inidB, double inWeight)
     //     }
     // }
 
+    // if we need to create A or B
     if (map[inidA - 1] == nullptr || map[inidB - 1] == nullptr)
     {
         if (map[inidA - 1] == nullptr)
@@ -98,22 +99,23 @@ bool Graph::insert(int inidA, int inidB, double inWeight)
         }
 
         map[inidA - 1]->edges.push_back(new Edge(inWeight, map[inidB - 1]));
-        return 1;
+        return true;
     }
 
+    // if A and B both exist check if edge
     for (std::size_t i = 0; i < map[inidA - 1]->edges.size(); ++i)
     {
         if (map[inidA - 1]->edges[i] != nullptr)
         {
             if (map[inidA - 1]->edges[i]->nextVertex->id == inidB)
             {
-                return 0;
+                return false;
             }
         }
     }
 
     map[inidA - 1]->edges.push_back(new Edge(inWeight, map[inidB - 1]));
-    return 1;
+    return true;
 }
 
 void Graph::print(int inid)
@@ -135,14 +137,14 @@ bool Graph::remove(int inid)
 {
     if (numOfVertex == 0)
     {
-        return 0;
+        return false;
     }
 
     Vertex* a = map[inid - 1];
 
     if (a == nullptr)
     {
-        return 0;
+        return false;
     }
 
     for (int i = 0; i < 23133; ++i)
@@ -177,7 +179,7 @@ bool Graph::remove(int inid)
     map[inid - 1] = nullptr;
     --numOfVertex;
 
-    return 1;
+    return true;
 }
 
 int Graph::graphSize()
@@ -191,12 +193,12 @@ int Graph::mst(int inid)
 
     if (numOfVertex == 0)
     {
-        return 0;
+        return false;
     }
 
     if (map[inid - 1] == nullptr)
     {
-        return 0;
+        return false;
     }
 
     for (int i = 0; i < 23133; ++i)
