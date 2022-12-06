@@ -9,6 +9,10 @@ Graph::Graph()
     {
         map[i] = nullptr;
     }
+    for (std::size_t i = 0; i < 23133; ++i)
+    {
+        visit[i] = false;
+    }
 }
 
 Graph::~Graph()

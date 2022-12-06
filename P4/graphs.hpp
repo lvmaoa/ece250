@@ -48,6 +48,7 @@ public:
     Graph();
     ~Graph();
 
+    bool visit[23133];
     std::vector<class Vertex*> ignore;
     Vertex* map[23133];
     int numOfVertex;
